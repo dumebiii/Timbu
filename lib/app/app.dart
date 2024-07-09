@@ -12,6 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: StartupView),
     // @stacked-route
   ],
+  logger: StackedLogger(),
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),

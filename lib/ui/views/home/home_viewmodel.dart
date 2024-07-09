@@ -1,36 +1,30 @@
-import 'package:timbu/app/app.bottomsheets.dart';
-import 'package:timbu/app/app.dialogs.dart';
-import 'package:timbu/app/app.locator.dart';
-import 'package:timbu/ui/common/app_strings.dart';
+import 'dart:async';
+
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:timbu/app/app.locator.dart';
+import 'package:timbu/app/app.logger.dart';
+import 'package:timbu/model/product.dart';
+import 'package:timbu/utilities/products_api.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+class HomeViewModel extends FutureViewModel {
+  final log = getLogger('HomeViewModel');
 
-  String get counterLabel => 'Counter is: $_counter';
+  final _productService = locator<ProductService>();
 
-  int _counter = 0;
+  Product? product;
+  // Product _product;
+  // List<Product> get product => _product;
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Future<Product> getproductss() async {
+    // try {
+    Product result = await _productService.getProducts();
+
+    product = result;
+    print(product);
+
+    return Future.value(product);
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
+  @override
+  Future futureToRun() => getproductss();
 }
