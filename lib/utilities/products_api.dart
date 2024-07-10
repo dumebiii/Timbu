@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:timbu/app/app.logger.dart';
-import 'package:timbu/model/api_response.dart';
 import 'package:timbu/model/product.dart';
 import 'package:timbu/ui/common/app_strings.dart';
 import 'package:timbu/utilities/api_handler/api.dart';
@@ -27,7 +24,7 @@ class ProductService implements Products {
     var api = _apiService.api;
 
     try {
-      final Response response = await api.get(
+      final response = await api.get(
         getProductUrl,
         options: Options(headers: postHeader),
       );
@@ -36,12 +33,14 @@ class ProductService implements Products {
 
       print("Responseeeeeee Data: $data");
 
-      Product profile = Product.fromJson(data);
-      return profile;
+      Product mapProducts = Product.fromJson(data);
+
+      print(mapProducts);
+
+      return mapProducts;
     } on DioException catch (e) {
       return Future.error(AppException.handleError(e));
     } catch (e) {
-      // Handle any other types of exceptions, such as parsing errors
       return Future.error(e);
     }
   }
