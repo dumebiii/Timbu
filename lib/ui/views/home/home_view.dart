@@ -78,11 +78,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
                       print(imgurl);
 
-                      // double currentPrice = viewModel.getCurrentPrice(
-                      //     viewModel.product!.items[index].currentPrice);
                       return Container(
-                          height: 200,
-                          width: 200,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(color: kblack, width: 2)),
@@ -93,30 +89,30 @@ class HomeView extends StackedView<HomeViewModel> {
                                     MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Center(
-                                    child: Image.network(
-                                      height: 90,
-                                      width: 200,
-                                      "$kimg/${viewModel.product!.items[index].photos.first.url}?organization_id=$korganizationID&Appid=$kappID&Apikey=$kApiKey",
-                                      fit: BoxFit.contain,
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
+                                  Expanded(
+                                    child: Center(
+                                      child: Image.network(
+                                        "$kimg/${viewModel.product!.items[index].photos.first.url}?organization_id=$korganizationID&Appid=$kappID&Apikey=$kApiKey",
+                                        fit: BoxFit.contain,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null)
+                                            return child;
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                   Text(
