@@ -5,8 +5,8 @@
 
 
 #### Splash Screen
-![image info](Screenshot/screen1.png)
+![image info](screenshot/screen1.png)
 
 #### List of products, images, and prices
-![image info](Screenshot/screen2.png)
+![image info](screenshot/screen2.png)
 
